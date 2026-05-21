@@ -217,15 +217,13 @@ audio{accent-color:var(--gold);height:40px;width:100%;}
 .pdf-pagenum{font-family:'Cinzel',serif;font-size:0.65rem;letter-spacing:0.08em;color:var(--white);min-width:4.5rem;text-align:center;}
 .pdf-fs-btn{font-family:'Cinzel',serif;font-size:0.56rem;letter-spacing:0.1em;color:var(--gold);background:transparent;border:1px solid var(--gold);padding:0.32rem 0.7rem;cursor:pointer;position:absolute;right:1rem;transition:all .2s;}
 .pdf-fs-btn:hover{background:var(--gold);color:var(--black);}
-.pdf-frame-wrap{overflow:hidden;display:flex;justify-content:center;align-items:flex-start;background:#111;height:360px;}
-.pdf-frame-wrap.tall{height:440px;}
-.pdf-frame-wrap iframe{width:100%;height:100%;border:none;display:block;}
+.pdf-frame-wrap{overflow:auto;display:flex;justify-content:center;align-items:flex-start;background:#111;height:360px;}
+.pdf-frame-wrap.tall{height:420px;}
 /* Fullscreen */
 .pdf-fso{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.97);z-index:9999;flex-direction:column;}
 .pdf-fso.open{display:flex;}
 .pdf-fso-bar{display:flex;align-items:center;justify-content:center;gap:1.2rem;padding:0.7rem 1.5rem;background:var(--dark);border-bottom:1px solid var(--border);flex-shrink:0;position:relative;}
-.pdf-fso-wrap{flex:1;overflow:hidden;display:flex;justify-content:center;background:#111;}
-.pdf-fso-wrap iframe{width:100%;height:100%;border:none;}
+.pdf-fso-wrap{flex:1;overflow:auto;display:flex;justify-content:center;align-items:flex-start;padding:1.5rem;background:#111;}
 .pdf-close{font-family:'Cinzel',serif;font-size:0.6rem;letter-spacing:0.12em;color:var(--gold);background:none;border:1px solid var(--gold);padding:0.38rem 1rem;cursor:pointer;position:absolute;right:1.5rem;transition:all .2s;}
 .pdf-close:hover{background:var(--gold);color:var(--black);}
 </style>
@@ -493,7 +491,7 @@ audio{accent-color:var(--gold);height:40px;width:100%;}
 </div>
     <div class="audio-player reveal">
       <div class="audio-title">Movement 1 — Overabundance</div>
-      <audio controls preload="metadata" style="width:100%;margin-top:0.5rem;"><source src="gaia-mvt-1.mp3" type="audio/mpeg"></audio>
+      <audio controls preload="auto" style="width:100%;margin-top:0.5rem;"><source src="gaia-mvt-1.mp3" type="audio/mpeg"></audio>
     </div>
   </div>
 
@@ -525,7 +523,7 @@ audio{accent-color:var(--gold);height:40px;width:100%;}
 </div>
     <div class="audio-player reveal">
       <div class="audio-title">Movement 2 — As the Oceans Grow</div>
-      <audio controls preload="metadata" style="width:100%;margin-top:0.5rem;"><source src="gaia-mvt-2.mp3" type="audio/mpeg"></audio>
+      <audio controls preload="auto" style="width:100%;margin-top:0.5rem;"><source src="gaia-mvt-2.mp3" type="audio/mpeg"></audio>
     </div>
   </div>
 
@@ -975,69 +973,20 @@ audio{accent-color:var(--gold);height:40px;width:100%;}
   <div class="divider reveal"></div>
   <p class="audio-section-label">Ensemble Pieces</p>
 <div class="audio-player">
-  <div class="audio-title">Fair-Weather Flam</div>
-  <audio controls preload="metadata" style="width:100%;margin-top:0.5rem;">
-    <source src="fair-weather-flam.mp3" type="audio/mpeg">
-  </audio>
-</div>
-<div class="audio-player">
-  <div class="audio-title">Snow-capped Serenity</div>
-  <audio controls preload="metadata" style="width:100%;margin-top:0.5rem;">
-    <source src="snow-capped-serenity.mp3" type="audio/mpeg">
-  </audio>
-</div>
-<div class="audio-player">
-  <div class="audio-title">Polka Dotted</div>
-  <audio controls preload="metadata" style="width:100%;margin-top:0.5rem;">
-    <source src="polka-dotted.mp3" type="audio/mpeg">
-  </audio>
-</div>
-<div class="audio-player">
-  <div class="audio-title">Monkey on a Unicycle</div>
-  <audio controls preload="metadata" style="width:100%;margin-top:0.5rem;">
-    <source src="monkey-on-a-unicycle.mp3" type="audio/mpeg">
-  </audio>
-</div>
-<div class="audio-player">
-  <div class="audio-title">Lilac Lullaby</div>
-  <audio controls preload="metadata" style="width:100%;margin-top:0.5rem;">
-    <source src="lilac-lullaby.mp3" type="audio/mpeg">
-  </audio>
-</div>
-<div class="audio-player">
   <div class="audio-title">Flow</div>
-  <audio controls preload="metadata" style="width:100%;margin-top:0.5rem;">
-    <source src="flow.mp3" type="audio/mpeg">
-  </audio>
-</div>
 <div class="audio-player">
   <div class="audio-title">Visceral</div>
-  <audio controls preload="metadata" style="width:100%;margin-top:0.5rem;">
-    <source src="visceral-ensemble.mp3" type="audio/mpeg">
-  </audio>
-</div>
-    </div>
-  </div>
-</div><footer><span class="ft-name">© Chris Cerreto</span></footer></div>
-
-<div class="page" id="page-media"><div class="page-hero">
-  
-  <p class="eyebrow ani-up">Audio · Video</p>
-  <h1 class="page-title ani-up d2">Media</h1>
-  
-</div><div class="content">
-  <p class="section-label ani-up">Performance Reels</p>
-  <div class="media-grid">
-    <div class="reveal">
-      <div class="vid-wrap"><iframe src="https://www.youtube.com/embed/NQx3fqkM3RY" allowfullscreen loading="lazy"></iframe></div>
-      <p class="vid-caption">Mean Girls National Tour Drum Set Reel</p>
-    </div>
-    <div class="reveal">
-      <div class="vid-wrap"><iframe src="https://www.youtube.com/embed/0jU1WiNVCEA" allowfullscreen loading="lazy"></iframe></div>
-      <p class="vid-caption">Anastasia National Tour Orchestral Percussion Reel</p>
-    </div>
-  </div>
-  <div class="divider"></div>
+<div class="audio-player">
+  <div class="audio-title">Monkey on a Unicycle</div>
+<div class="audio-player">
+  <div class="audio-title">Lilac Lullaby</div>
+<div class="audio-player">
+  <div class="audio-title">Snow-capped Serenity</div>
+<div class="audio-player">
+  <div class="audio-title">Polka Dotted</div>
+<div class="audio-player">
+  <div class="audio-title">Fair-Weather Flam</div>
+<div class="divider"></div>
   <p class="section-label reveal">Electric Etudes</p>
   <div class="media-grid">
     <div class="reveal"><div class="vid-wrap"><iframe src="https://www.youtube.com/embed/76XJ5pkF50s" allowfullscreen loading="lazy"></iframe></div><p class="vid-caption">Triangle Level 1 — <em>Sync</em></p></div>
@@ -1164,14 +1113,26 @@ function setupPDFViewer(boxId, b64key){
   function renderTo(cvs, n, isFS){
     if(!pdfDoc) return;
     pdfDoc.getPage(n).then(function(page){
-      const wrap = cvs.parentElement;
-      const availW = wrap ? Math.max(wrap.clientWidth-2,300) : 500;
+      const dpr = window.devicePixelRatio || 1;
       const vp1 = page.getViewport({scale:1});
-      const scale = isFS ? Math.min((window.innerWidth*0.85)/vp1.width, (window.innerHeight*0.85)/vp1.height)
-                        : Math.min(availW/vp1.width, 1.8);
-      const vp = page.getViewport({scale:scale});
-      cvs.width=vp.width; cvs.height=vp.height;
-      page.render({canvasContext:cvs.getContext('2d'),viewport:vp});
+      var cssW;
+      if(isFS){
+        cssW = Math.min(
+          window.innerWidth  * 0.88,
+          (window.innerHeight * 0.88) * (vp1.width / vp1.height)
+        );
+      } else {
+        const wrap = cvs.parentElement;
+        const maxW = wrap ? Math.max(wrap.clientWidth - 4, 200) : 500;
+        cssW = Math.min(maxW, vp1.width * 1.0);
+      }
+      const scale = (cssW / vp1.width) * dpr;
+      const vp = page.getViewport({scale: scale});
+      cvs.width  = vp.width;
+      cvs.height = vp.height;
+      cvs.style.width  = Math.round(vp.width  / dpr) + 'px';
+      cvs.style.height = Math.round(vp.height / dpr) + 'px';
+      page.render({canvasContext: cvs.getContext('2d'), viewport: vp});
     });
   }
 
@@ -1223,6 +1184,16 @@ window.addEventListener('load', function(){
   setupPDFViewer('pdf3','pdf3');
   setupPDFViewer('pdf4','pdf4');
 });
+</script>
+
+<script>
+// Exclusive audio playback - pause all others when one starts
+document.addEventListener('play', function(e) {
+  if (e.target.tagName !== 'AUDIO') return;
+  document.querySelectorAll('audio').forEach(function(a) {
+    if (a !== e.target) { a.pause(); }
+  });
+}, true);
 </script>
 </body>
 </html>
