@@ -378,7 +378,7 @@ audio{accent-color:var(--gold);height:40px;width:100%;}
     <div class="pdf-right-btns">
       <button class="pdf-zoom-btn zoom-out-btn" title="Zoom out">&#x2212;</button>
       <button class="pdf-zoom-btn zoom-in-btn" title="Zoom in">&#x2B;</button>
-      <button class="pdf-fs-btn fs-btn">&#x26F6;</button>
+      <button class="pdf-fs-btn fs-btn">&#x26F6; Full Screen</button>
     </div>
   </div>
   <div class="pdf-frame-wrap"><canvas></canvas></div>
@@ -387,7 +387,11 @@ audio{accent-color:var(--gold);height:40px;width:100%;}
       <button class="pdf-nav prev-btn-fs" disabled>&#8592; Prev</button>
       <span class="pdf-pagenum page-info-fs">Loading...</span>
       <button class="pdf-nav next-btn-fs" disabled>Next &#8594;</button>
-      <button class="pdf-close close-btn">&#x2715; Close</button>
+      <div class="pdf-right-btns" style="position:absolute;right:1.5rem;display:flex;gap:0.5rem;align-items:center;">
+        <button class="pdf-zoom-btn zoom-out-btn-fs" title="Zoom out">&#x2212;</button>
+        <button class="pdf-zoom-btn zoom-in-btn-fs" title="Zoom in">&#x2B;</button>
+        <button class="pdf-close close-btn">&#x2715; Close</button>
+      </div>
     </div>
     <div class="pdf-fso-wrap"><canvas class="fs-canvas"></canvas></div>
   </div>
@@ -424,7 +428,7 @@ audio{accent-color:var(--gold);height:40px;width:100%;}
     <div class="pdf-right-btns">
       <button class="pdf-zoom-btn zoom-out-btn" title="Zoom out">&#x2212;</button>
       <button class="pdf-zoom-btn zoom-in-btn" title="Zoom in">&#x2B;</button>
-      <button class="pdf-fs-btn fs-btn">&#x26F6;</button>
+      <button class="pdf-fs-btn fs-btn">&#x26F6; Full Screen</button>
     </div>
   </div>
   <div class="pdf-frame-wrap"><canvas></canvas></div>
@@ -433,7 +437,11 @@ audio{accent-color:var(--gold);height:40px;width:100%;}
       <button class="pdf-nav prev-btn-fs" disabled>&#8592; Prev</button>
       <span class="pdf-pagenum page-info-fs">Loading...</span>
       <button class="pdf-nav next-btn-fs" disabled>Next &#8594;</button>
-      <button class="pdf-close close-btn">&#x2715; Close</button>
+      <div class="pdf-right-btns" style="position:absolute;right:1.5rem;display:flex;gap:0.5rem;align-items:center;">
+        <button class="pdf-zoom-btn zoom-out-btn-fs" title="Zoom out">&#x2212;</button>
+        <button class="pdf-zoom-btn zoom-in-btn-fs" title="Zoom in">&#x2B;</button>
+        <button class="pdf-close close-btn">&#x2715; Close</button>
+      </div>
     </div>
     <div class="pdf-fso-wrap"><canvas class="fs-canvas"></canvas></div>
   </div>
@@ -463,7 +471,7 @@ audio{accent-color:var(--gold);height:40px;width:100%;}
     <div class="pdf-right-btns">
       <button class="pdf-zoom-btn zoom-out-btn" title="Zoom out">&#x2212;</button>
       <button class="pdf-zoom-btn zoom-in-btn" title="Zoom in">&#x2B;</button>
-      <button class="pdf-fs-btn fs-btn">&#x26F6;</button>
+      <button class="pdf-fs-btn fs-btn">&#x26F6; Full Screen</button>
     </div>
   </div>
   <div class="pdf-frame-wrap"><canvas></canvas></div>
@@ -472,7 +480,11 @@ audio{accent-color:var(--gold);height:40px;width:100%;}
       <button class="pdf-nav prev-btn-fs" disabled>&#8592; Prev</button>
       <span class="pdf-pagenum page-info-fs">Loading...</span>
       <button class="pdf-nav next-btn-fs" disabled>Next &#8594;</button>
-      <button class="pdf-close close-btn">&#x2715; Close</button>
+      <div class="pdf-right-btns" style="position:absolute;right:1.5rem;display:flex;gap:0.5rem;align-items:center;">
+        <button class="pdf-zoom-btn zoom-out-btn-fs" title="Zoom out">&#x2212;</button>
+        <button class="pdf-zoom-btn zoom-in-btn-fs" title="Zoom in">&#x2B;</button>
+        <button class="pdf-close close-btn">&#x2715; Close</button>
+      </div>
     </div>
     <div class="pdf-fso-wrap"><canvas class="fs-canvas"></canvas></div>
   </div>
@@ -495,7 +507,7 @@ audio{accent-color:var(--gold);height:40px;width:100%;}
     <div class="pdf-right-btns">
       <button class="pdf-zoom-btn zoom-out-btn" title="Zoom out">&#x2212;</button>
       <button class="pdf-zoom-btn zoom-in-btn" title="Zoom in">&#x2B;</button>
-      <button class="pdf-fs-btn fs-btn">&#x26F6;</button>
+      <button class="pdf-fs-btn fs-btn">&#x26F6; Full Screen</button>
     </div>
   </div>
   <div class="pdf-frame-wrap"><canvas></canvas></div>
@@ -504,7 +516,11 @@ audio{accent-color:var(--gold);height:40px;width:100%;}
       <button class="pdf-nav prev-btn-fs" disabled>&#8592; Prev</button>
       <span class="pdf-pagenum page-info-fs">Loading...</span>
       <button class="pdf-nav next-btn-fs" disabled>Next &#8594;</button>
-      <button class="pdf-close close-btn">&#x2715; Close</button>
+      <div class="pdf-right-btns" style="position:absolute;right:1.5rem;display:flex;gap:0.5rem;align-items:center;">
+        <button class="pdf-zoom-btn zoom-out-btn-fs" title="Zoom out">&#x2212;</button>
+        <button class="pdf-zoom-btn zoom-in-btn-fs" title="Zoom in">&#x2B;</button>
+        <button class="pdf-close close-btn">&#x2715; Close</button>
+      </div>
     </div>
     <div class="pdf-fso-wrap"><canvas class="fs-canvas"></canvas></div>
   </div>
@@ -1092,22 +1108,22 @@ function initPDF(boxId, dataKey) {
   });
 
   var zoomLevel = 1.0;
-  function render(n, c, fs, zoomOverride) {
+  var fsZoomLevel = 1.0;
+  function render(n, c, fs) {
     if(!doc) return;
     doc.getPage(n).then(function(pg) {
       var dpr=window.devicePixelRatio||1;
       var vp1=pg.getViewport({scale:1});
-      var cssW, scale;
+      var cssW;
       if(fs) {
-        cssW=Math.min(window.innerWidth*0.88,(window.innerHeight*0.88)*(vp1.width/vp1.height));
-        scale=(cssW/vp1.width)*dpr;
+        var baseW=Math.min(window.innerWidth*0.88,(window.innerHeight*0.88)*(vp1.width/vp1.height));
+        cssW = baseW * fsZoomLevel;
       } else {
         var wrap=c.parentElement;
-        var baseW=Math.min(wrap?Math.max(wrap.clientWidth-4,200):500, vp1.width*1.5);
-        var z = zoomOverride !== undefined ? zoomOverride : zoomLevel;
-        cssW = baseW * z;
-        scale=(cssW/vp1.width)*dpr;
+        var baseW2=Math.min(wrap?Math.max(wrap.clientWidth-4,200):500, vp1.width*1.5);
+        cssW = baseW2 * zoomLevel;
       }
+      var scale=(cssW/vp1.width)*dpr;
       var vp=pg.getViewport({scale:scale});
       c.width=vp.width; c.height=vp.height;
       c.style.width=Math.round(vp.width/dpr)+'px';
@@ -1148,7 +1164,17 @@ function initPDF(boxId, dataKey) {
     zoomLevel=Math.max(zoomLevel-0.25, 0.5);
     render(cur,cvs,false);
   };
-  if(fsBtn&&fso) { fsBtn.onclick=function(){ fso.classList.add('open'); document.body.style.overflow='hidden'; setTimeout(function(){render(cur,fsCvs,true);},50); }; }
+  var fsZoomIn=box.querySelector('.zoom-in-btn-fs');
+  var fsZoomOut=box.querySelector('.zoom-out-btn-fs');
+  if(fsZoomIn) fsZoomIn.onclick=function(){
+    fsZoomLevel=Math.min(fsZoomLevel+0.25, 4.0);
+    render(cur,fsCvs,true);
+  };
+  if(fsZoomOut) fsZoomOut.onclick=function(){
+    fsZoomLevel=Math.max(fsZoomLevel-0.25, 0.25);
+    render(cur,fsCvs,true);
+  };
+  if(fsBtn&&fso) { fsBtn.onclick=function(){ fsZoomLevel=1.0; fso.classList.add('open'); document.body.style.overflow='hidden'; setTimeout(function(){render(cur,fsCvs,true);},50); }; }
   if(closeBtn&&fso) { closeBtn.onclick=function(){ fso.classList.remove('open'); document.body.style.overflow=''; }; }
 }
 
