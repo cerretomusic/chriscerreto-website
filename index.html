@@ -1228,12 +1228,22 @@ var revObs=new IntersectionObserver(function(entries){
 },{threshold:0.06});
 function initReveal(root){root.querySelectorAll('.reveal').forEach(function(el){revObs.observe(el);});}
 
-function go(page) {
+function go(page, noPush) {
   document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
   var el=document.getElementById('page-'+page);
   if(el){el.classList.add('active');window.scrollTo(0,0);initReveal(el);}
-  history.replaceState(null,'','#'+page);
+  if(noPush) {
+    history.replaceState({page:page},'','#'+page);
+  } else {
+    history.pushState({page:page},'','#'+page);
+  }
 }
+
+// Handle browser back/forward buttons
+window.addEventListener('popstate', function(e) {
+  var page = (e.state && e.state.page) ? e.state.page : (location.hash.replace('#','') || 'home');
+  go(page, true);
+});
 
 window.addEventListener('load', function(){
   initPDF('pdf1','pdf1'); initPDF('pdf2','pdf2');
@@ -1253,7 +1263,7 @@ window.addEventListener('load', function(){
     'mb-utopia','mb-supernova','mb-deliver-us','mb-autumn-leaves','mb-dragonborn',
     'mb-immigrant-song','mb-shipping-boston','mb-requiem-dream','mb-riot-rhythm'];
   var hash=location.hash.replace('#','');
-  go(allPages.indexOf(hash)!==-1?hash:'home');
+  go(allPages.indexOf(hash)!==-1?hash:'home', true);
 });
 </script>
 </body>
