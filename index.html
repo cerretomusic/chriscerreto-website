@@ -321,6 +321,39 @@ audio{accent-color:var(--gold);height:40px;width:100%;}
 
   .ga-link{align-self:center;}
 }
+
+/* CUSTOM AUDIO PLAYER */
+.cc-player{width:350px;max-width:100%;background:#333;border:1px solid #454545;display:flex;flex-direction:column;margin:0 auto 1.5rem;text-align:left;}
+.cc-art{position:relative;width:100%;aspect-ratio:1/1;background:#2b2b2b;overflow:hidden;}
+.cc-art img{width:100%;height:100%;object-fit:cover;display:block;}
+.cc-bigplay{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:62px;height:62px;border-radius:50%;border:none;cursor:pointer;background:rgba(10,10,10,.62);color:#fff;display:flex;align-items:center;justify-content:center;transition:background .2s,color .2s;padding:0;}
+.cc-bigplay:hover{background:rgba(201,168,76,.9);color:#0a0a0a;}
+.cc-bigplay svg{width:24px;height:24px;margin-left:3px;}
+.cc-bigplay.playing svg{margin-left:0;}
+.cc-head{padding:.95rem 1.05rem .55rem;}
+.cc-album{font-family:'Cinzel',serif;font-size:.78rem;letter-spacing:.09em;color:#fff;line-height:1.4;margin:0;}
+.cc-bar{padding:.75rem 1.05rem .85rem;border-bottom:1px solid #454545;}
+.cc-transport{display:flex;align-items:center;gap:.6rem;margin-bottom:.55rem;}
+.cc-btn{background:none;border:none;cursor:pointer;color:#fff;padding:0;display:flex;align-items:center;justify-content:center;transition:color .2s;}
+.cc-btn:hover{color:var(--gold);}
+.cc-btn svg{width:15px;height:15px;}
+.cc-btn.play svg{width:19px;height:19px;}
+.cc-now{flex:1;font-size:.9rem;color:#9a9a9a;font-style:italic;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.cc-elapsed{font-family:'Cinzel',serif;font-size:.56rem;color:#9a9a9a;}
+.cc-track{height:3px;background:#4a4a4a;cursor:pointer;}
+.cc-fill{height:100%;width:0;background:var(--gold);transition:width .1s linear;}
+.cc-list{list-style:none;margin:0;padding:0;overflow-y:auto;max-height:300px;scrollbar-width:thin;scrollbar-color:#555 #333;}
+.cc-list::-webkit-scrollbar{width:7px;}
+.cc-list::-webkit-scrollbar-thumb{background:#555;}
+.cc-row{display:grid;grid-template-columns:1.6rem 1fr auto;align-items:center;gap:.6rem;padding:.5rem 1.05rem;cursor:pointer;border-bottom:1px solid rgba(255,255,255,.05);transition:background .15s;}
+.cc-row:hover{background:rgba(255,255,255,.05);}
+.cc-row.active{background:rgba(201,168,76,.13);}
+.cc-num{font-family:'Cinzel',serif;font-size:.6rem;color:#9a9a9a;text-align:right;}
+.cc-row.active .cc-num{color:var(--gold);}
+.cc-name{font-size:1rem;line-height:1.4;color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.cc-row.active .cc-name{color:var(--gold-lt);}
+.cc-time{font-family:'Cinzel',serif;font-size:.58rem;color:#9a9a9a;}
+@media(max-width:768px){.cc-player{width:100%;max-width:400px;}.cc-list{max-height:260px;}}
 </style>
 </head>
 <body>
@@ -1264,6 +1297,7 @@ function go(page, noPush) {
   document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
   var el=document.getElementById('page-'+page);
   if(el){el.classList.add('active');window.scrollTo(0,0);initReveal(el);
+    if(window.ccInitPlayers)window.ccInitPlayers();
   }
   if(noPush) {
     history.replaceState({page:page},'','#'+page);
@@ -1320,7 +1354,7 @@ window.addEventListener('load', function(){
   <div class="ga-pair">
     <div class="ga-block">
       <h3 class="ga-title reveal">Singularity Nightmare &mdash; Soundtrack &amp; SFX</h3>
-      <div class="bc-wrap reveal"><iframe style="border:0;width:350px;height:687px;" src="https://bandcamp.com/EmbeddedPlayer/album=2076545635/size=large/bgcol=333333/linkcol=ffffff/transparent=true/" seamless><a href="https://cerretomusic.bandcamp.com/album/singularity-nightmare-soundtrack-sfx">Singularity Nightmare Soundtrack &amp; SFX by Cerreto</a></iframe></div>
+      <div class="bc-wrap reveal" data-album="singularity-nightmare"></div>
       <p class="ga-desc reveal">All music and SFX created in 6 days for the 1-Bit Game Jam Competition</p>
       <div class="ga-shots reveal">
         <img src="Singularity-Nightmare-1.png" alt="Singularity Nightmare screenshot" loading="lazy">
@@ -1333,7 +1367,7 @@ window.addEventListener('load', function(){
 
     <div class="ga-block">
       <h3 class="ga-title reveal">Sunshade &mdash; Soundtrack &amp; SFX</h3>
-      <div class="bc-wrap reveal"><iframe style="border:0;width:350px;height:786px;" src="https://bandcamp.com/EmbeddedPlayer/album=3670728040/size=large/bgcol=333333/linkcol=ffffff/transparent=true/" seamless><a href="https://cerretomusic.bandcamp.com/album/sunshade-soundtrack-sfx">Sunshade Soundtrack &amp; SFX by Cerreto</a></iframe></div>
+      <div class="bc-wrap reveal" data-album="sunshade"></div>
       <p class="ga-desc reveal">All music and SFX created in 1.5 weeks for the Comfy Summer Game Jam Competition</p>
       <div class="ga-shots reveal">
         <img src="Sunshade-1.png" alt="Sunshade screenshot" loading="lazy">
@@ -1345,7 +1379,7 @@ window.addEventListener('load', function(){
 
   <div class="ga-center">
     <h3 class="ga-title reveal">Run, Dino, Run! &mdash; Soundtrack &amp; SFX</h3>
-    <div class="bc-wrap reveal"><iframe style="border:0;width:350px;height:687px;" src="https://bandcamp.com/EmbeddedPlayer/album=1599143259/size=large/bgcol=333333/linkcol=ffffff/transparent=true/" seamless><a href="https://cerretomusic.bandcamp.com/album/run-dino-run-soundtrack-sfx">Run, Dino, Run! Soundtrack &amp; SFX by Cerreto</a></iframe></div>
+    <div class="bc-wrap reveal" data-album="run-dino-run"></div>
     <p class="ga-desc reveal">All music and SFX created in 2 days for the Micro Game Jam Competition</p>
     <a class="btn-outline ga-link reveal" href="https://danyerm.itch.io/run-dino-run" target="_blank" rel="noopener">Play on itch.io &#8599;</a>
   </div>
@@ -1355,12 +1389,94 @@ window.addEventListener('load', function(){
   <h2 class="ga-section-title reveal">Other VG Music Samples</h2>
 
   <div class="ga-center">
-    <div class="bc-wrap reveal"><iframe style="border:0;width:350px;height:522px;" src="https://bandcamp.com/EmbeddedPlayer/album=3844239336/size=large/bgcol=333333/linkcol=ffffff/transparent=true/" seamless><a href="https://cerretomusic.bandcamp.com/album/vg-music-samples">VG Music Samples by Cerreto</a></iframe></div>
+    <div class="bc-wrap reveal" data-album="vg-music-samples"></div>
   </div>
 
 </div>
 <footer><span class="ft-name">&copy; Chris Cerreto</span></footer>
 </div>
+
+
+<script>
+(function(){
+var IP='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>',
+    IU='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>',
+    IV='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6L18 6v12z"/></svg>',
+    IN='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 6h2v12h-2zM6 6l8.5 6L6 18z"/></svg>';
+var ALBUMS={"singularity-nightmare": {"album": "Singularity Nightmare \u2014 Soundtrack & SFX", "cover": "https://audio.chriscerreto.com/singularity-nightmare/cover.jpg", "tracks": [["Combat Music", "https://audio.chriscerreto.com/singularity-nightmare/01-combat-music.wav"], ["Boss Battle", "https://audio.chriscerreto.com/singularity-nightmare/02-boss-battle.wav"], ["Ambient Music", "https://audio.chriscerreto.com/singularity-nightmare/03-ambient-music.wav"], ["Sci-Fi Gunshot SFX", "https://audio.chriscerreto.com/singularity-nightmare/04-sci-fi-gunshot-sfx.wav"], ["Mechanical Enemy Death SFX", "https://audio.chriscerreto.com/singularity-nightmare/05-mechanical-enemy-death-sfx.wav"], ["Footsteps SFX", "https://audio.chriscerreto.com/singularity-nightmare/06-footsteps-sfx.wav"], ["SMG SFX", "https://audio.chriscerreto.com/singularity-nightmare/07-smg-sfx.wav"]]}, "sunshade": {"album": "Sunshade \u2014 Soundtrack & SFX", "cover": "https://audio.chriscerreto.com/sunshade/cover.jpg", "tracks": [["Main Menu", "https://audio.chriscerreto.com/sunshade/01-main-menu.wav"], ["Gameplay Music", "https://audio.chriscerreto.com/sunshade/02-gameplay-music.wav"], ["Crabs+Fish SFX", "https://audio.chriscerreto.com/sunshade/03-crabs-plus-fish-sfx.wav"], ["Beach Ball SFX", "https://audio.chriscerreto.com/sunshade/04-beach-ball-sfx.wav"], ["Beach Chair SFX", "https://audio.chriscerreto.com/sunshade/05-beach-chair-sfx.wav"], ["Shell SFX", "https://audio.chriscerreto.com/sunshade/06-shell-sfx.wav"], ["Metal Water Bottle SFX", "https://audio.chriscerreto.com/sunshade/07-metal-water-bottle-sfx.wav"], ["Dropping Cooler SFX", "https://audio.chriscerreto.com/sunshade/08-dropping-cooler-sfx.wav"], ["Sand SFX", "https://audio.chriscerreto.com/sunshade/09-sand-sfx.wav"], ["Open Sunscreen SFX", "https://audio.chriscerreto.com/sunshade/10-open-sunscreen-sfx.wav"], ["Flower SFX", "https://audio.chriscerreto.com/sunshade/11-flower-sfx.wav"], ["Correct SFX", "https://audio.chriscerreto.com/sunshade/12-correct-sfx.wav"], ["Incorrect SFX", "https://audio.chriscerreto.com/sunshade/13-incorrect-sfx.wav"], ["Click 1 SFX", "https://audio.chriscerreto.com/sunshade/14-click-1-sfx.wav"], ["Click 2 SFX", "https://audio.chriscerreto.com/sunshade/15-click-2-sfx.wav"]]}, "run-dino-run": {"album": "Run, Dino, Run! \u2014 Soundtrack & SFX", "cover": "https://audio.chriscerreto.com/run-dino-run/cover.jpg", "tracks": [["Gameplay Music", "https://audio.chriscerreto.com/run-dino-run/01-gameplay-music.wav"], ["Victory Fanfare", "https://audio.chriscerreto.com/run-dino-run/02-victory-fanfare.wav"], ["Jump SFX", "https://audio.chriscerreto.com/run-dino-run/03-jump-sfx.wav"], ["Chomp to Boost SFX", "https://audio.chriscerreto.com/run-dino-run/04-chomp-to-boost-sfx.wav"], ["Cactus Stab SFX", "https://audio.chriscerreto.com/run-dino-run/05-cactus-stab-sfx.wav"], ["Landing SFX", "https://audio.chriscerreto.com/run-dino-run/06-landing-sfx.wav"], ["Click SFX", "https://audio.chriscerreto.com/run-dino-run/07-click-sfx.wav"]]}, "vg-music-samples": {"album": "VG Music Samples", "cover": "https://audio.chriscerreto.com/vg-music-samples/cover.jpg", "tracks": [["Hollow Cyber Dimension Sample", "https://audio.chriscerreto.com/vg-music-samples/01-hollow-cyber-dimension-sample.wav"], ["Facing the Colossal - Chiptune Sample", "https://audio.chriscerreto.com/vg-music-samples/02-facing-the-colossal-chiptune-sample.wav"]]}};
+var players=[];
+function solo(a){players.forEach(function(p){if(p!==a)p.halt();});}
+function fmt(s){return isFinite(s)?Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0'):'0:00';}
+
+function build(host,d){
+  var el=document.createElement('div'); el.className='cc-player';
+  el.innerHTML='<div class="cc-art"><img src="'+d.cover+'" alt="" loading="lazy">'
+    +'<button class="cc-bigplay" aria-label="Play">'+IP+'</button></div>'
+    +'<div class="cc-head"><p class="cc-album">'+d.album+'</p></div>'
+    +'<div class="cc-bar"><div class="cc-transport">'
+    +'<button class="cc-btn prev" aria-label="Previous track">'+IV+'</button>'
+    +'<button class="cc-btn play" aria-label="Play">'+IP+'</button>'
+    +'<button class="cc-btn next" aria-label="Next track">'+IN+'</button>'
+    +'<span class="cc-now"></span><span class="cc-elapsed">0:00</span></div>'
+    +'<div class="cc-track"><div class="cc-fill"></div></div></div>'
+    +'<ul class="cc-list">'+d.tracks.map(function(t,i){
+        return '<li class="cc-row" data-i="'+i+'"><span class="cc-num">'+(i+1)+'</span>'
+             +'<span class="cc-name">'+t[0]+'</span><span class="cc-time">--:--</span></li>';}).join('')
+    +'</ul>';
+  host.appendChild(el);
+
+  var rows=[].slice.call(el.querySelectorAll('.cc-row')),
+      big=el.querySelector('.cc-bigplay'), pb=el.querySelector('.play'),
+      now=el.querySelector('.cc-now'), ela=el.querySelector('.cc-elapsed'),
+      fill=el.querySelector('.cc-fill'), bar=el.querySelector('.cc-track');
+  var audio=new Audio(); audio.preload='none'; var idx=0;
+
+  d.tracks.forEach(function(t,i){
+    var p=new Audio(); p.preload='metadata'; p.src=t[1];
+    p.addEventListener('loadedmetadata',function(){
+      rows[i].querySelector('.cc-time').textContent=fmt(p.duration);});
+  });
+
+  function paint(){
+    rows.forEach(function(r,i){r.classList.toggle('active',i===idx);});
+    now.textContent=d.tracks[idx][0];
+    ela.textContent=fmt(audio.currentTime);
+    fill.style.width=(audio.duration?audio.currentTime/audio.duration*100:0)+'%';
+    var ic=audio.paused?IP:IU;
+    pb.innerHTML=ic; big.innerHTML=ic; big.classList.toggle('playing',!audio.paused);
+  }
+  function load(i,go){idx=i;audio.src=d.tracks[i][1];paint();if(go)play();}
+  function play(){solo(api);audio.play().catch(function(){});}
+
+  audio.addEventListener('ended',function(){
+    if(idx<d.tracks.length-1){load(idx+1,true);} else {audio.currentTime=0;paint();}});
+  audio.addEventListener('timeupdate',paint);
+  audio.addEventListener('play',paint);
+  audio.addEventListener('pause',paint);
+
+  pb.onclick=big.onclick=function(){audio.paused?play():audio.pause();};
+  el.querySelector('.prev').onclick=function(){load(idx>0?idx-1:0,!audio.paused);};
+  el.querySelector('.next').onclick=function(){if(idx<d.tracks.length-1)load(idx+1,!audio.paused);};
+  rows.forEach(function(r){r.onclick=function(){load(+r.dataset.i,true);};});
+  bar.onclick=function(e){if(!audio.duration)return;
+    var r=bar.getBoundingClientRect();
+    audio.currentTime=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width))*audio.duration;paint();};
+
+  var api={halt:function(){audio.pause();}};
+  players.push(api); load(0,false);
+}
+
+function init(){
+  document.querySelectorAll('[data-album]').forEach(function(h){
+    if(h.dataset.built) return;
+    var d=ALBUMS[h.dataset.album]; if(!d) return;
+    h.dataset.built='1'; build(h,d);
+  });
+}
+window.addEventListener('load',init);
+window.ccInitPlayers=init;
+})();
+</script>
 
 </body>
 
