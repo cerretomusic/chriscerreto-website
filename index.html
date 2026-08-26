@@ -316,7 +316,7 @@ audio{accent-color:var(--gold);height:40px;width:100%;}
   .ga-desc{font-size:0.72rem;padding:1rem 1.15rem;}
   .ga-section-title{font-size:1.25rem;letter-spacing:0.13em;margin-bottom:2.2rem;}
   .ga-title{font-size:0.94rem;}
-  .bc-wrap iframe{width:400px !important;min-width:400px;max-width:none;transform-origin:top left;}
+  .bc-wrap iframe{width:400px;min-width:400px;max-width:none;transform-origin:top left;}
   .bc-wrap{overflow:hidden;}
     .ga-block .bc-wrap{display:flex;justify-content:center;}
 
@@ -1264,7 +1264,9 @@ function initReveal(root){root.querySelectorAll('.reveal').forEach(function(el){
 function go(page, noPush) {
   document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
   var el=document.getElementById('page-'+page);
-  if(el){el.classList.add('active');window.scrollTo(0,0);initReveal(el);if(typeof fitBandcamp==='function')setTimeout(fitBandcamp,30);}
+  if(el){el.classList.add('active');window.scrollTo(0,0);initReveal(el);
+    if(typeof fitBandcamp==='function'){fitBandcamp();setTimeout(fitBandcamp,60);setTimeout(fitBandcamp,400);}
+  }
   if(noPush) {
     history.replaceState({page:page},'','#'+page);
   } else {
@@ -1279,22 +1281,32 @@ window.addEventListener('popstate', function(e) {
 });
 
 
-// Bandcamp players collapse their tracklist below ~400px, so render at a true
-// 400px and scale down visually to fit narrow screens.
+
+
+
+// Bandcamp hides its tracklist below ~400px wide. Render the iframe at a real
+// 400px and scale it down to fit. Guarded: never scales to 0, and re-measures
+// once the page is actually visible (pages are display:none until navigated).
 function fitBandcamp(){
-  var narrow = window.innerWidth <= 768;
+  if(window.innerWidth > 768){
+    document.querySelectorAll('.bc-wrap').forEach(function(w){
+      var f=w.querySelector('iframe'); if(f) f.style.transform='';
+      w.style.height='';
+    });
+    return;
+  }
   document.querySelectorAll('.bc-wrap').forEach(function(w){
-    var f = w.querySelector('iframe');
-    if(!f) return;
-    var h = parseInt(f.getAttribute('style').match(/height:(\d+)px/)[1],10);
-    if(!narrow){ f.style.transform=''; w.style.height=''; return; }
-    var avail = w.clientWidth || w.parentElement.clientWidth;
-    var s = Math.min(avail/400,1);
-    f.style.transform = 'scale('+s+')';
-    w.style.height = Math.ceil(h*s)+'px';
+    var f=w.querySelector('iframe'); if(!f) return;
+    var avail=w.clientWidth||w.parentElement.clientWidth||0;
+    if(avail<40) return;                       // hidden or unmeasurable: leave alone
+    var m=(f.getAttribute('style')||'').match(/height:\s*(\d+)px/);
+    if(!m) return;
+    var s=Math.min(avail/400,1);
+    if(!(s>0.1)) return;                       // never collapse
+    f.style.transform='scale('+s+')';
+    w.style.height=Math.ceil(parseInt(m[1],10)*s)+'px';
   });
 }
-window.addEventListener('load',fitBandcamp);
 window.addEventListener('resize',fitBandcamp);
 
 window.addEventListener('load', function(){
