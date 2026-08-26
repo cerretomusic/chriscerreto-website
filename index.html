@@ -316,7 +316,8 @@ audio{accent-color:var(--gold);height:40px;width:100%;}
   .ga-desc{font-size:0.72rem;padding:1rem 1.15rem;}
   .ga-section-title{font-size:1.25rem;letter-spacing:0.13em;margin-bottom:2.2rem;}
   .ga-title{font-size:0.94rem;}
-  .bc-wrap iframe{width:100%;min-width:0;max-width:400px;}
+  .bc-wrap iframe{width:400px !important;min-width:400px;max-width:none;transform-origin:top left;}
+  .bc-wrap{overflow:hidden;}
     .ga-block .bc-wrap{display:flex;justify-content:center;}
 
   .ga-link{align-self:center;}
@@ -1263,7 +1264,7 @@ function initReveal(root){root.querySelectorAll('.reveal').forEach(function(el){
 function go(page, noPush) {
   document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
   var el=document.getElementById('page-'+page);
-  if(el){el.classList.add('active');window.scrollTo(0,0);initReveal(el);}
+  if(el){el.classList.add('active');window.scrollTo(0,0);initReveal(el);if(typeof fitBandcamp==='function')setTimeout(fitBandcamp,30);}
   if(noPush) {
     history.replaceState({page:page},'','#'+page);
   } else {
@@ -1276,6 +1277,25 @@ window.addEventListener('popstate', function(e) {
   var page = (e.state && e.state.page) ? e.state.page : (location.hash.replace('#','') || 'home');
   go(page, true);
 });
+
+
+// Bandcamp players collapse their tracklist below ~400px, so render at a true
+// 400px and scale down visually to fit narrow screens.
+function fitBandcamp(){
+  var narrow = window.innerWidth <= 768;
+  document.querySelectorAll('.bc-wrap').forEach(function(w){
+    var f = w.querySelector('iframe');
+    if(!f) return;
+    var h = parseInt(f.getAttribute('style').match(/height:(\d+)px/)[1],10);
+    if(!narrow){ f.style.transform=''; w.style.height=''; return; }
+    var avail = w.clientWidth || w.parentElement.clientWidth;
+    var s = Math.min(avail/400,1);
+    f.style.transform = 'scale('+s+')';
+    w.style.height = Math.ceil(h*s)+'px';
+  });
+}
+window.addEventListener('load',fitBandcamp);
+window.addEventListener('resize',fitBandcamp);
 
 window.addEventListener('load', function(){
   initPDF('pdf1','pdf1'); initPDF('pdf2','pdf2');
